@@ -113,6 +113,7 @@ const resetPassword = async (
   token: string,
   { newPassword }: { newPassword: string },
 ) => {
+  token
   // creating token hash
   const decodedUser: JwtPayload = JwtHelpers.verifyToken(
     token,

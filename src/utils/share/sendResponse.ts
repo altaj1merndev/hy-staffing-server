@@ -12,7 +12,7 @@ interface TResponse<T> {
   success: boolean;
   message?: string;
   meta?: TMeta;
-  data: T;
+  data?: T;
 }
 
 const sendResponse = <T>(res: Response, data: TResponse<T>) => {
