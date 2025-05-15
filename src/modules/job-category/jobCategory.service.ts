@@ -5,6 +5,7 @@ import AppError from '../../errors/AppError';
 import QueryBuilder from '../../utils/queryBuilder';
 import { stringToSlug } from '../../utils/lib/stringToSlug';
 import { User } from '../user/user/user.model';
+import NotificationModel from '../notification/notification.model';
 
 // Create a new job category
 const createJobCategory = async (payload: TJobCategory) => {
@@ -22,7 +23,12 @@ const createJobCategory = async (payload: TJobCategory) => {
   if (!isUserExist) {
     throw new AppError(404, 'Agent (User) not found!');
   }
-
+  await NotificationModel.create({
+    userId: payload.agentId,
+    type: 'product',
+    title: 'New Product Added',
+    message: `User ${payload.agentId} added a new product.`,
+  });
   // Create new job category
   const result = await JobCategory.create({
     ...payload,
@@ -50,7 +56,7 @@ const getJobCategories = async (query: Record<string, unknown>) => {
   
     return {
       meta,
-      result,
+      data:result,
     };
   };
   

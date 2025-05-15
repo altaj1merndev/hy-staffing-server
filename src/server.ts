@@ -2,6 +2,7 @@ import { Server } from 'http';
 import mongoose from 'mongoose';
 import app from './app';
 import config from './config';
+import { initSocket } from './sockets/socket';
 // import seedSuperAdmin from './app/DB';
 
 let server: Server;
@@ -16,6 +17,7 @@ async function main() {
     server = app.listen(config.port, () => {
       console.log(`app is listening on port ${config.port}`);
     });
+    initSocket(server); // Init WebSocket server
   } catch (err) {
     console.log(err);
   }

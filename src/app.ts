@@ -2,6 +2,10 @@
 import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import router from './routes';
+import globalErrorHandler from './middlewares/globalErrorHandler';
+import notFound from './middlewares/notFound';
+import { MessageRoute } from './sockets/message.route';
+import { NotificationsRoute } from './modules/notification/notification.route';
 // import router from './routes';
 
 
@@ -9,6 +13,7 @@ const app: Application = express();
 const allowedOrigins = [
   'http://localhost:3000',
   'http://127.0.0.1:3000',
+  'http://localhost:5173'
 
 ];
 
@@ -31,13 +36,15 @@ app.use(express.json());
 //application routes
 
 app.use('/api', router);
-
+router.use('/messages', MessageRoute);
+router.use('/notifications', NotificationsRoute);
 const test = async (req: Request, res: Response) => {
   res.send('Hy Staffing Server is running..');
 };
 
 app.get('/', test);
 
-
+app.use(globalErrorHandler);
+app.use(notFound);
 
 export default app;

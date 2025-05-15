@@ -3,8 +3,6 @@ import { JwtPayload } from 'jsonwebtoken';
 import path from 'path';
 import config from '../../../config';
 
-
-
 import { User } from '../user/user.model';
 import { TLoginPayloadData } from './auth.interface';
 import { JwtHelpers, TJwtPayload } from '../../../utils/jwt';
@@ -28,7 +26,7 @@ const loginUser = async (payload: TLoginPayloadData) => {
   const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
-    throw new AppError(404, 'use i snot found!');
+    throw new AppError(404, 'use is not found!');
   }
 
   const isPasswordMatched = await User.comparePassword(password, user.password);

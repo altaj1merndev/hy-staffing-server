@@ -8,6 +8,7 @@ import { FooterRoutes } from '../modules/settings/footer/footer.api';
 import { JobCategoryRoutes } from '../modules/job-category/jobCategory.api';
 import { HowItWorksRoutes } from '../modules/how-it-works/howItWorks.api';
 import { SuccessStoryRoute } from '../modules/success-stories/success-stories.api';
+import { UploadRoutes } from '../modules/uploadImage/upload.images.api';
 
 const router = Router();
 
@@ -48,6 +49,10 @@ const moduleRoutes = [
     {
       path: '/success-story',
       route: SuccessStoryRoute,
+    },
+    {
+      path: '/upload-images',
+      route: UploadRoutes,
     },
 ]
 
